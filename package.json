@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vite preview",
-    "build": "vite build",
+    "build": "vite build --base=/esolang-ide/",
     "dev": "vite",
     "preview": "vite preview"
   },
