@@ -1,7 +1,11 @@
 export default function compile(code: string): string[] {
-    let text_regex = /(?<=\s|^)\."(.*?)"(?=\s|$)/g;
+    let text_regex = /(?<=\s|^)\."(.*?)"(?=\s|$)/gm;
+    let comment_regex = /^\/.*?$/gm;
 
     code = code.replace(text_regex, (match, text) => create_text(text))
+    code = code.replace(comment_regex, "").trim();
+
+    console.log(code);
 
     let tokens = code.split(/\s+/);
 
