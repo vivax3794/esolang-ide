@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card color="#424242">
-            <span v-for="(item, index) in tokens" :key="index">
+            <span v-for="(item, index) in code" :key="index">
                 <span :class="{ running: index == pointer }">{{ item }}</span>&nbsp;
             </span>
         </v-card>
@@ -11,8 +11,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-const props = defineProps<{ code: String, pointer: number }>();
-const tokens = computed(() => props.code.split(/\s+/))
+const props = defineProps<{ code: String[], pointer: number }>();
 </script>
 
 <style>

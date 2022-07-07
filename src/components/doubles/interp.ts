@@ -194,6 +194,7 @@ export default class Interp {
         }
         this.data[this.yValue][this.xValue + response.length] = 255;
         this.pointer++;
+        break;
       }
       default: {
         this.pointer++;

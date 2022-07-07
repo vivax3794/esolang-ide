@@ -35,10 +35,11 @@ import CodeDispay from "./codeDisplay.vue";
 import ArrayDisplay from "./arrayDisplay.vue";
 
 import Interp from "./interp";
+import compile from "./compile";
 
 const starting_code = location.hash.includes("#") ? decodeURIComponent(location.hash.slice(1)) : "DV IX IV DX CR FF IX DV PV GV DX GV RS"
 let code = ref(starting_code);
-let running_code = ref(starting_code);
+let running_code = ref(compile(starting_code));
 let inp = ref(new Interp());
 let speed = ref(100);
 
@@ -49,9 +50,9 @@ do_reset();
 function do_reset(): void {
   stop_code();
 
-  running_code.value = code.value;
+  running_code.value = compile(code.value);
   inp.value.reset();
-  inp.value.tokens = running_code.value.toUpperCase().split(/\s+/);
+  inp.value.tokens = running_code.value;
 }
 
 function run_code(): void {
