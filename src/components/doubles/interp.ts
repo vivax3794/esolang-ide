@@ -1,5 +1,3 @@
-const CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .,!?+-*/\"\\()[]{}\n"
-
 function parse_hex(value: string): number {
   return value.match(/^ *[a-f0-9]+ *$/i) ? parseInt(value, 16) % 256 : NaN
 }
@@ -33,7 +31,7 @@ export default class Interp {
         break;
       }
       case "PC": {
-        this.output += CHARSET[this.data[this.yValue][this.xValue] % CHARSET.length]
+        this.output += String.fromCharCode(this.data[this.yValue][this.xValue])
         this.pointer++;
         break;
       }
@@ -106,7 +104,7 @@ export default class Interp {
         let value = 255;
         let response = prompt("Enter one char");
         if (response !== null) {
-          value = CHARSET.indexOf(response.toUpperCase());
+          value = response.charCodeAt(0);
           if (value == -1) value = 255;
         }
 
@@ -187,6 +185,15 @@ export default class Interp {
           this.pointer -= amount;
         }
         break;
+      }
+      case "GS": {
+        let response = prompt("input a string");
+        response = response !== null ? response : "";
+        for (let index = 0; index < response.length; index++) {
+          this.data[this.yValue][this.xValue + index] = response.charCodeAt(index);
+        }
+        this.data[this.yValue][this.xValue + response.length] = 255;
+        this.pointer++;
       }
       default: {
         this.pointer++;
