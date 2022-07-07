@@ -232,6 +232,11 @@ export default class Interp {
         }
         break;
       }
+      case "RN": {
+        this.data[this.yValue][this.xValue] = Math.floor(Math.random() + 0.5);
+        this.pointer++;
+        break;
+      }
       default: {
         this.pointer++;
       }
