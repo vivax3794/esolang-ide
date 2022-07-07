@@ -154,6 +154,40 @@ export default class Interp {
         }
         break;
       }
+      case "JF": {
+        let amount = parse_hex(this.tokens[this.pointer + 1]);
+        this.pointer += amount;
+        break;
+      }
+      case "JB": {
+        let amount = parse_hex(this.tokens[this.pointer + 1]);
+        this.pointer -= amount;
+        break;
+      }
+      case "CF": {
+        let check = parse_hex(this.tokens[this.pointer + 1]);
+        let amount = parse_hex(this.tokens[this.pointer + 2])
+        let current = this.data[this.yValue][this.xValue];
+
+        if (check == current) {
+          this.pointer += 3;
+        } else {
+          this.pointer += amount;
+        }
+        break;
+      }
+      case "CB": {
+        let check = parse_hex(this.tokens[this.pointer + 1]);
+        let amount = parse_hex(this.tokens[this.pointer + 2])
+        let current = this.data[this.yValue][this.xValue];
+
+        if (check == current) {
+          this.pointer += 3;
+        } else {
+          this.pointer -= amount;
+        }
+        break;
+      }
       default: {
         this.pointer++;
       }

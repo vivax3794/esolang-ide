@@ -2,7 +2,7 @@
     <v-container>
         <v-card color="#424242">
             <span v-for="(item, index) in tokens" :key="index">
-                <span :class="{ running: index == pointer }">{{ item }}</span>&nbsp
+                <span :class="{ running: index == pointer }">{{ item }}</span>&nbsp;
             </span>
         </v-card>
     </v-container>
