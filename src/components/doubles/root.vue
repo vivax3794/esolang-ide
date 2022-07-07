@@ -20,8 +20,10 @@
           <pre>{{ inp.output }}</pre>
         </v-card>
       </v-container>
-      X = {{ inp.xValue.toString(16).toUpperCase().padStart(2, "0") }} ({{ inp.xValue }}) <br />
-      Y = {{ inp.yValue.toString(16).toUpperCase().padStart(2, "0") }} ({{ inp.yValue }})
+      <span style="font-family: monospace;">
+        X = {{ inp.xValue.toString(16).toUpperCase().padStart(2, "0") }} ({{ inp.xValue }}) <br />
+        Y = {{ inp.yValue.toString(16).toUpperCase().padStart(2, "0") }} ({{ inp.yValue }})
+      </span>
       <ArrayDisplay :values="inp.data" :x-index="inp.xValue" :y-index="inp.yValue" />
     </v-card>
   </v-container>

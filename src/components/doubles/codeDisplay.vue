@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card color="#424242">
-            <span v-for="(item, index) in code" :key="index">
+            <span style="font-family: monospace;" v-for="(item, index) in code" :key="index">
                 <span :class="{ running: index == pointer }">{{ item }}</span>&nbsp;
             </span>
         </v-card>

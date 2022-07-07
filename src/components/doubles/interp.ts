@@ -9,6 +9,7 @@ export default class Interp {
   pointer = 0;
   xValue = 0;
   yValue = 0;
+  stack: number[] = [];
   data: number[][] = [...Array(256)].map(_ => Array(255).fill(0));
   output = "";
 
@@ -18,6 +19,7 @@ export default class Interp {
     this.xValue = 0;
     this.yValue = 0;
     this.output = "";
+    this.stack = [];
     this.data.forEach(sub => sub.fill(0));
   }
 
@@ -194,6 +196,40 @@ export default class Interp {
         }
         this.data[this.yValue][this.xValue + response.length] = 255;
         this.pointer++;
+        break;
+      }
+      case "JR": {
+        let location = parse_hex(this.tokens[this.pointer + 1]);
+        this.stack.push(this.pointer + 2);
+        this.pointer = location;
+        break;
+      }
+      case "RR": {
+        this.pointer = this.stack.pop() ?? this.pointer + 1;
+        break;
+      }
+      case "RC": {
+        let check = parse_hex(this.tokens[this.pointer + 1]);
+        let location = parse_hex(this.tokens[this.pointer + 2]);
+        let current = this.data[this.yValue][this.xValue];
+
+        if (current != check) {
+          this.stack.push(this.pointer + 3);
+          this.pointer = location;
+        } else {
+          this.pointer += 3;
+        }
+        break;
+      }
+      case "BC": {
+        let check = parse_hex(this.tokens[this.pointer + 1]);
+        let current = this.data[this.yValue][this.xValue];
+
+        if (current != check) {
+          this.pointer = this.stack.pop() ?? this.pointer;
+        } else {
+          this.pointer += 2;
+        }
         break;
       }
       default: {
