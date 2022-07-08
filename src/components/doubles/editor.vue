@@ -5,7 +5,8 @@
   <v-container>
     <v-card color="#424242">
       <pre id="input-colors">{{ starting_code }}</pre>
-      <pre id="input" contenteditable="true" @input="(event) => content_changed(event)"> {{ starting_code }} </pre>
+      <pre color="transparent" id="input" contenteditable="true"
+        @input="(event) => content_changed(event)"> {{ starting_code }} </pre>
     </v-card>
   </v-container>
 </template>
@@ -71,6 +72,7 @@ function highligth(code: string): string {
 
 <style>
 #input {
+  background-color: transparent;
   color: transparent;
   /* Make text invisible */
   caret-color: hsl(50, 75%, 70%);
@@ -83,5 +85,6 @@ function highligth(code: string): string {
   user-select: none;
   font-family: monospace;
   color: cyan;
+  pointer-events: none;
 }
 </style>
