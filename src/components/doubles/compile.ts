@@ -10,15 +10,23 @@ export default function compile(code: string): string[] {
     let tokens = code.split(/\s+/);
 
     // Generate 
-    let labels: { [name: string]: string } = {};
+    let labels: { [name: string]: number } = {};
     tokens = tokens.filter((item, index) => {
         if (item.endsWith(":")) { // Label
-            labels[item.slice(0, -1)] = (index - Object.keys(labels).length).toString(16).toUpperCase().padStart(2, "0");
+            labels[item.slice(0, -1)] = (index - Object.keys(labels).length);
             return false;
         } else {
             return true;
         }
-    }).map((value) => labels[value] ?? value).map((value) => {
+    }).map((value, index) => {
+        if (value in labels) {
+            return labels[value].toString(16).toUpperCase().padStart(2, "0");
+        } else if (value[0] == "*" && value.slice(1) in labels) {
+            return Math.abs(index - labels[value.slice(1)]).toString(16).toUpperCase().padStart(2, "0");
+        } else {
+            return value;
+        }
+    }).map((value) => {
         if (value.startsWith("#")) {
             return value.charCodeAt(1).toString(16).toUpperCase().padStart(2, "0");
         } else {
