@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <Editor v-model="code" />
+      <Editor @update:code="(newcode) => code = newcode" :starting_code="starting_code" />
       <v-container>
         <v-row>
           <v-btn @click="run_code()" v-if="!inp.running" color="green">RUN</v-btn>
