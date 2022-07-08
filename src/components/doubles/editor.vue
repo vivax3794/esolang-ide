@@ -5,7 +5,7 @@
   <v-container>
     <v-card color="#424242">
       <pre id="input-colors">{{ starting_code }}</pre>
-      <pre color="transparent" id="input" contenteditable="true"
+      <pre id="input" contenteditable="true" @paste="(payload) => paste_event(payload)"
         @input="(event) => content_changed(event)"> {{ starting_code }} </pre>
     </v-card>
   </v-container>
@@ -49,6 +49,11 @@ const props = defineProps<{
   starting_code: String;
 }>();
 const emit = defineEmits(["update:code"]);
+
+function paste_event(event: ClipboardEvent): void {
+  event.preventDefault();
+  document.execCommand('inserttext', false, event.clipboardData.getData('text/plain'));
+}
 
 function content_changed(event: Event): void {
   let element = event.target as HTMLPreElement;
