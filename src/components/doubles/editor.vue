@@ -61,9 +61,10 @@ function content_changed(event: Event): void {
 
 function highligth(code: string): string {
   code = code.replace(/\/.*?$/gm, "<span style='color: gray'>$&</span>")
-  code = code.replace(/(?:\s|^)\.".*?"(?:\s|$)/gm, "<span style='color: green'>$&</span>")
+  code = code.replace(/(?=\s|^)\w*?:(?=\s|$)/gm, "<span style='color: pink'>$&</span>")
+  code = code.replace(/(?<=\s|^)\.".*?"(?=\s|$)/gm, "<span style='color: green'>$&</span>")
 
-  Object.keys(COLORS).forEach((token) => code = code.replace(new RegExp(token, "g"), `<span style="color: ${COLORS[token] ?? 'cyan'}">${token}</span>`));
+  Object.keys(COLORS).forEach((token) => code = code.replace(new RegExp(`(?<=\\s|^)${token}(?=\\s|$)`, "gm"), `<span style="color: ${COLORS[token] ?? 'cyan'}">${token}</span>`));
 
 
   return code;
