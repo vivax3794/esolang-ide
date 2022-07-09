@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <Editor @update:code="(newcode) => code = newcode" :starting_code="starting_code" />
+      <Editor @update:code="(newcode) => code = newcode" :starting_code="starting_code.join(' ')" />
       <v-container>
         <v-row>
           <v-btn @click="run_code()" v-if="!inp.running" color="green">RUN</v-btn>
@@ -38,10 +38,11 @@ import ArrayDisplay from "./arrayDisplay.vue";
 
 import Interp from "./interp";
 import compile from "./compile";
+import { encode, decode } from "./encoding";
 
-const starting_code = location.hash.includes("#") ? decodeURIComponent(location.hash.slice(1)) : "DV IX IV DX CR FF IX DV PV GV DX GV RS"
-let code = ref(starting_code);
-let running_code = ref(compile(starting_code));
+const starting_code = location.hash.includes("#") ? decode(decodeURIComponent(location.hash.slice(1))) : []
+let code = ref(starting_code.join(" "));
+let running_code = ref(starting_code);
 let inp = ref(new Interp());
 let speed = ref(100);
 
@@ -55,6 +56,8 @@ function do_reset(): void {
   running_code.value = compile(code.value);
   inp.value.reset();
   inp.value.tokens = running_code.value;
+
+  location.hash = "#" + encode(running_code.value);
 }
 
 function run_code(): void {
@@ -76,4 +79,5 @@ function stop_code(): void {
   clearInterval(interval_id);
   interval_id = undefined;
 }
+
 </script>
