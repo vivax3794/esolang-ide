@@ -5,7 +5,7 @@
                 <span :class="{ running: index == pointer }"
                     :style="{ color: index == pointer ? null : (COLORS[item] ?? 'cyan') }">
                     {{ item }}
-                </span>&nbsp;</span>
+                </span>&ensp;</span>
         </v-card>
     </v-container>
 </template>
