@@ -21,8 +21,10 @@ export default function compile(code: string): string[] {
     }).map((value, index) => {
         if (value in labels) {
             return labels[value].toString(16).toUpperCase().padStart(2, "0");
-        } else if (value[0] == "*" && value.slice(1) in labels) {
-            return Math.abs(index - labels[value.slice(1)]).toString(16).toUpperCase().padStart(2, "0");
+        } else if (value[0] == "<" && value.slice(1) in labels) {
+            return (index - labels[value.slice(1)] - 1).toString(16).toUpperCase().padStart(2, "0");
+        } else if (value[0] == ">" && value.slice(1) in labels) {
+            return (labels[value.slice(1)] - index + 1).toString(16).toUpperCase().padStart(2, "0");
         } else {
             return value;
         }

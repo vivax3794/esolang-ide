@@ -65,6 +65,10 @@ function content_changed(event: Event): void {
 }
 
 function highligth(code: string): string {
+  let p = document.createElement("p");
+  p.innerText = code;
+  code = p.innerHTML;
+
   code = code.replace(/\/.*?$/gm, "<span style='color: gray'>$&</span>")
   code = code.replace(/(?<=\s|^)\w*?:(?=\s|$)/gm, "<span style='color: pink'>$&</span>")
   code = code.replace(/(?<=\s|^)\.".*?"(?=\s|$)/gm, "<span style='color: green'>$&</span>")
