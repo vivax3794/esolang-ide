@@ -3,8 +3,9 @@
         <v-card color="#424242">
             <span style="font-family: monospace;" v-for="(item, index) in code" :key="index">
                 <span :class="{ running: index == pointer }"
-                    :style="{ color: index == pointer ? null : (COLORS[item] ?? 'cyan') }">{{ item }}</span>&nbsp;
-            </span>
+                    :style="{ color: index == pointer ? null : (COLORS[item] ?? 'cyan') }">
+                    {{ item }}
+                </span>&nbsp;</span>
         </v-card>
     </v-container>
 </template>
